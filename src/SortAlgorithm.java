@@ -2,9 +2,9 @@ import java.util.Arrays;
 
 public class SortAlgorithm {
     public static void main(String[] args) {
-        int[] input = new int[]{5, 4, 3, 2, 0, 0, 1};
+        int[] input = new int[]{5,4,3,2,1};
         System.out.println("Selection sort: " + Arrays.toString(selectionSort(input)));
-        System.out.println("Selection sort: " + Arrays.toString(bubbleSort(input)));
+        System.out.println("Bubble sort: " + Arrays.toString(bubbleSort(input)));
     }
 
     public static int[] selectionSort(int[] numbers) {
@@ -22,12 +22,11 @@ public class SortAlgorithm {
         boolean sorted = false;
         int pass = 1;
         while (!sorted) {
+            sorted = true;
             for (int i = 0; i < numbers.length - pass; i++) {
                 if (numbers[i] > numbers[i + 1]) {
                     swap(numbers, numbers[i], numbers[i + 1]);
                     sorted = false;
-                } else {
-                    sorted = true;
                 }
             }
             pass++;

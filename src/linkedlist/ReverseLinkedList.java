@@ -1,3 +1,5 @@
+package linkedlist;
+
 public class ReverseLinkedList {
     public static class ListNode {
         int val;

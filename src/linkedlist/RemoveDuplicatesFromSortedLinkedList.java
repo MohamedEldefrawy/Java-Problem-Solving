@@ -1,3 +1,5 @@
+package linkedlist;
+
 public class RemoveDuplicatesFromSortedLinkedList {
     public static class ListNode {
         int val;

@@ -16,12 +16,11 @@ public class RemoveDuplicatesFromSortedLinkedList {
         }
     }
 
-    public static ListNode deleteDuplicates(ListNode head) {
+    private static ListNode deleteDuplicates(ListNode head) {
         ListNode left = head;
         ListNode right = head;
 
         while (left != null) {
-
             if (right.next == null) {
                 left = left.next;
                 right = left;

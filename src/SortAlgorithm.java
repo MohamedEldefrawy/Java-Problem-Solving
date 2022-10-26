@@ -10,36 +10,40 @@ public class SortAlgorithm {
         System.out.println("Merge sort: " + Arrays.toString(mergeSort(mergeSortInput)));
     }
 
+    /**
+     * @param numbers int[]
+     * @return result int[]
+     * sorting given array using merge sort algorithm
+     */
     public static int[] mergeSort(int[] numbers) {
         int mid = numbers.length / 2;
 
-        if (numbers.length == 1)
+        if (numbers.length == 1) // base case of dividing given array
             return numbers;
 
         int[] left = new int[mid];
         int[] right = new int[numbers.length - mid];
 
         for (int i = 0; i < left.length; i++) {
-            left[i] = numbers[i];
+            left[i] = numbers[i]; // populating left array with left half of array
         }
 
-        for (int i = 0, j = mid; i < right.length; i++) {
-            right[i] = numbers[mid];
+        for (int i = 0; i < right.length; i++) {
+            right[i] = numbers[mid]; // populating left array with left half of array
             mid++;
         }
 
+        // recursively dividing arrays
         int[] sortedRight = mergeSort(right);
         int[] sortedLeft = mergeSort(left);
 
         return merge(sortedRight, sortedLeft);
-
     }
 
     /**
      * @param leftArray  int[]
      * @param rightArray int[]
      * @return result int[]
-     * <p>
      * take two arrays and return merged sorted array
      */
     private static int[] merge(int[] leftArray, int[] rightArray) {
@@ -73,6 +77,11 @@ public class SortAlgorithm {
         return result;
     }
 
+    /**
+     * @param numbers int[]
+     * @return result int[]
+     * Sorting given array of numbers using selection sort
+     */
     public static int[] selectionSort(int[] numbers) {
         for (int i = 0; i < numbers.length; i++) {
             for (int j = i + 1; j < numbers.length; j++) {
@@ -84,6 +93,10 @@ public class SortAlgorithm {
         return numbers;
     }
 
+    /**
+     * @param numbers int[]
+     * @return result int[]
+     */
     public static int[] bubbleSort(int[] numbers) {
         boolean sorted = false; // Assuming array not sorted
         int pass = 1;
@@ -103,6 +116,12 @@ public class SortAlgorithm {
         return numbers;
     }
 
+    /**
+     * @param numbers int[]
+     * @param i       int  index of first element
+     * @param j       int index of second element
+     *                Take an array with two targets indecencies nad swap them
+     */
     private static void swap(int[] numbers, int i, int j) {
         int temp = numbers[i];
         numbers[i] = numbers[j];

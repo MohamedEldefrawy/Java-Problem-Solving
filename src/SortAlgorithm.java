@@ -2,9 +2,75 @@ import java.util.Arrays;
 
 public class SortAlgorithm {
     public static void main(String[] args) {
-        int[] input = new int[]{5,4,3,2,1};
-        System.out.println("Selection sort: " + Arrays.toString(selectionSort(input)));
-        System.out.println("Bubble sort: " + Arrays.toString(bubbleSort(input)));
+        int[] selectionSortInput = new int[]{5, 4, 3, 2, 1, 0};
+        int[] bubbleSortInput = new int[]{5, 4, 3, 2, 1};
+        int[] mergeSortInput = new int[]{5, 4, 3, 2, 1, 10, 100, 0, 0};
+        System.out.println("Selection sort: " + Arrays.toString(selectionSort(selectionSortInput)));
+        System.out.println("Bubble sort: " + Arrays.toString(bubbleSort(bubbleSortInput)));
+        System.out.println("Merge sort: " + Arrays.toString(mergeSort(mergeSortInput)));
+    }
+
+    public static int[] mergeSort(int[] numbers) {
+        int mid = numbers.length / 2;
+
+        if (numbers.length == 1)
+            return numbers;
+
+        int[] left = new int[mid];
+        int[] right = new int[numbers.length - mid];
+
+        for (int i = 0; i < left.length; i++) {
+            left[i] = numbers[i];
+        }
+
+        for (int i = 0, j = mid; i < right.length; i++) {
+            right[i] = numbers[mid];
+            mid++;
+        }
+
+        int[] sortedRight = mergeSort(right);
+        int[] sortedLeft = mergeSort(left);
+
+        return merge(sortedRight, sortedLeft);
+
+    }
+
+    /**
+     * @param leftArray  int[]
+     * @param rightArray int[]
+     * @return result int[]
+     * <p>
+     * take two arrays and return merged sorted array
+     */
+    private static int[] merge(int[] leftArray, int[] rightArray) {
+        int[] result = new int[leftArray.length + rightArray.length];
+        int leftArrayIndex = 0;
+        int rightArrayIndex = 0;
+        int resultArrayIndex = 0;
+        while (leftArrayIndex < leftArray.length && rightArrayIndex < rightArray.length) {
+            if (leftArray[leftArrayIndex] <= rightArray[rightArrayIndex]) {
+                result[resultArrayIndex] = leftArray[leftArrayIndex];
+                resultArrayIndex++;
+                leftArrayIndex++;
+            } else if (leftArray[leftArrayIndex] >= rightArray[rightArrayIndex]) {
+                result[resultArrayIndex] = rightArray[rightArrayIndex];
+                rightArrayIndex++;
+                resultArrayIndex++;
+            }
+        }
+
+        while (leftArrayIndex < leftArray.length) {
+            result[resultArrayIndex] = leftArray[leftArrayIndex];
+            leftArrayIndex++;
+            resultArrayIndex++;
+        }
+
+        while (rightArrayIndex < rightArray.length) {
+            result[resultArrayIndex] = rightArray[rightArrayIndex];
+            rightArrayIndex++;
+            resultArrayIndex++;
+        }
+        return result;
     }
 
     public static int[] selectionSort(int[] numbers) {
@@ -19,13 +85,16 @@ public class SortAlgorithm {
     }
 
     public static int[] bubbleSort(int[] numbers) {
-        boolean sorted = false;
+        boolean sorted = false; // Assuming array not sorted
         int pass = 1;
         while (!sorted) {
-            sorted = true;
+            sorted = true; // change state to sorted until start swapping operation
+
+
             for (int i = 0; i < numbers.length - pass; i++) {
+                // loop until
                 if (numbers[i] > numbers[i + 1]) {
-                    swap(numbers, numbers[i], numbers[i + 1]);
+                    swap(numbers, i, i + 1);
                     sorted = false;
                 }
             }

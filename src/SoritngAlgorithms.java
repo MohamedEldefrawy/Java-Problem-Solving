@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public class SortAlgorithm {
+public class SoritngAlgorithms {
     private static int swaps = 0;
 
     public static void main(String[] args) {
@@ -8,11 +8,41 @@ public class SortAlgorithm {
         int[] bubbleSortInput = new int[]{5, 4, 3, 2, 1};
         int[] mergeSortInput = new int[]{5, 4, 3, 2, 1, 10, 100, 0, 0};
         int[] quickSortInput = new int[]{10, 16, 8, 12, 15, 6, 3, 9, 5};
+        int[] insertionSortInput = new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+        int[] shellSortInput = new int[]{10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
         System.out.println("Selection sort: " + Arrays.toString(selectionSort(selectionSortInput)));
         System.out.println("Bubble sort: " + Arrays.toString(bubbleSort(bubbleSortInput)));
         System.out.println("Merge sort: " + Arrays.toString(mergeSort(mergeSortInput)));
         quickSort(quickSortInput, 0, quickSortInput.length - 1);
         System.out.println("Quick sort: " + Arrays.toString(quickSortInput) + " swaps= " + swaps);
+        insertionSort(insertionSortInput, 0, 1);
+        System.out.println("Insertion sort: " + Arrays.toString(insertionSortInput));
+        shellSort(shellSortInput);
+        System.out.println("Shell sort: " + Arrays.toString(shellSortInput));
+    }
+
+    public static void shellSort(int[] numbers) {
+        int increment = numbers.length / 2;
+        while (increment > 0) {
+            for (int i = 0; i < increment; i++) {
+                insertionSort(numbers, i, increment);
+            }
+            increment--;
+        }
+
+    }
+
+    public static void insertionSort(int[] numbers, int startIndex, int increment) {
+        for (int i = increment; i < numbers.length; i += increment) {
+            for (int j = i - increment; j >= 0; j -= increment) {
+                if (numbers[i] < numbers[j]) {
+                    swap(numbers, i, j);
+                    i -= increment;
+                } else {
+                    break;
+                }
+            }
+        }
     }
 
     public static void quickSort(int[] numbers, int start, int end) {

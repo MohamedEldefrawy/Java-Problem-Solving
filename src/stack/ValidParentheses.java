@@ -13,6 +13,7 @@ public class ValidParentheses {
         List<String> openParentheses = new ArrayList<>();
         List<String> closeParentheses = new ArrayList<>();
 
+        // Use map instead key is open and value is closing
         openParentheses.add("(");
         openParentheses.add("[");
         openParentheses.add("{");
@@ -26,15 +27,13 @@ public class ValidParentheses {
                 stringStack.add(input[i]);
                 i++;
             } else {
-                if (!stringStack.empty())
-                {
+                if (!stringStack.empty()) {
                     var openIndex = openParentheses.indexOf(stringStack.pop());
                     var closeIndex = closeParentheses.indexOf(input[i]);
                     if (openIndex != closeIndex) {
                         return false;
                     }
-                }
-                else
+                } else
                     return false;
 
                 i++;

@@ -1,13 +1,52 @@
 import java.util.Arrays;
 
 public class SortAlgorithm {
+    private static int swaps = 0;
+
     public static void main(String[] args) {
         int[] selectionSortInput = new int[]{5, 4, 3, 2, 1, 0};
         int[] bubbleSortInput = new int[]{5, 4, 3, 2, 1};
         int[] mergeSortInput = new int[]{5, 4, 3, 2, 1, 10, 100, 0, 0};
+        int[] quickSortInput = new int[]{10, 16, 8, 12, 15, 6, 3, 9, 5};
         System.out.println("Selection sort: " + Arrays.toString(selectionSort(selectionSortInput)));
         System.out.println("Bubble sort: " + Arrays.toString(bubbleSort(bubbleSortInput)));
         System.out.println("Merge sort: " + Arrays.toString(mergeSort(mergeSortInput)));
+        quickSort(quickSortInput, 0, quickSortInput.length - 1);
+        System.out.println("Quick sort: " + Arrays.toString(quickSortInput) + " swaps= " + swaps);
+    }
+
+    public static void quickSort(int[] numbers, int start, int end) {
+        if (start >= end)
+            return;
+
+        int newPivot = partition(numbers, start, end);
+        quickSort(numbers, start, newPivot - 1);
+        quickSort(numbers, newPivot + 1, end);
+    }
+
+    public static int partition(int[] numbers, int leftIndex, int rightIndex) {
+        int pivot = leftIndex;
+        while (leftIndex < rightIndex) {
+            // get number larger than pivot from left
+            while (leftIndex < rightIndex && numbers[leftIndex] < numbers[pivot])
+                leftIndex++;
+
+            // get number less than pivot from right
+            while (leftIndex < rightIndex && numbers[rightIndex] >= numbers[pivot])
+                rightIndex--;
+
+            // swap them
+            swap(numbers, leftIndex, rightIndex);
+            swaps++;
+        }
+
+        // put pivot in its correct position
+        swap(numbers, pivot, rightIndex);
+        swaps++;
+
+
+        // return new pivot index
+        return rightIndex;
     }
 
     /**
